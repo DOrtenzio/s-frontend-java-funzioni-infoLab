@@ -54,6 +54,16 @@ public class ArchivioDiNomi{
                     }
                     break;
                 case 4:
+                    if (conta==0)
+                        System.out.println("Inserire almeno un valore prima");
+                    else {
+                        for (int i=0;i<conta;i++){
+                            if (!isGiaPresente(parole,i)){
+                                System.out.println("La stringa "+parole[i]+" è presente in quantità "+isRipetizioni(parole,i,conta));
+                            }
+                        }
+                    }
+                    break;
                 case 5:
                 case 6:
                     if (conta==0)
@@ -106,5 +116,24 @@ public class ArchivioDiNomi{
             }
         }
         return presente;
+    }
+    private static boolean isGiaPresente (String [] parole, int i){
+        boolean presente=false;
+        for (int p=i-1;p>=0;p--){
+            if (parole[i].equals(parole[p])){
+                presente=true;
+                break;
+            }
+        }
+        return presente;
+    }
+    private static int isRipetizioni (String [] parole, int i, int conta){
+        int ripetizioni=1;
+        for (int p=i+1;p<conta;p++){
+            if (parole[i].equals(parole[p])){
+                ripetizioni++;
+            }
+        }
+        return ripetizioni;
     }
 }
