@@ -2,9 +2,7 @@ import java.util.Scanner;
 public class ArchivioDiNomi{
     public static void main (String[]args){
         Scanner in = new Scanner (System.in);
-        int conta=0;
-        boolean ce=false;
-        int scelta;
+        int conta=0,multipli,scelta;
         String [] parole=new String[100];
         do{
             System.out.println ("Scegli una tra le opzioni proposte:");
@@ -14,7 +12,7 @@ public class ArchivioDiNomi{
             System.out.println ("4 - Visualizza nomi ripetuti con numero ripetizioni;");
             System.out.println ("5 - Modifica di un nome;");
             System.out.println ("6 - Visualizzazione di tutti i nomi presenti;");
-            System.out.println ("7 - Ricerca del nome piC9 lungo e piC9 corto;");
+            System.out.println ("7 - Ricerca del nome più lungo e più corto;");
             System.out.println ("8 - Cancellazione di tutte le occorrenze di un nome;");
             System.out.println ("0 - Uscita ");
             scelta = in.nextInt();
@@ -65,6 +63,20 @@ public class ArchivioDiNomi{
                     }
                     break;
                 case 5:
+                    if (conta==0)
+                        System.out.println("Inserire almeno un valore prima");
+                    else{
+                        System.out.println("Inserire la stringa da ricercare per modificare");
+                        String sricerca=in.nextLine();
+                        if (isRicerca(parole,sricerca,conta)){
+                            System.out.println("Inserire la parola con cui modificare: "+sricerca);
+                            String smodifica=in.nextLine();
+                            parole=isModifica(parole,sricerca,smodifica,conta);
+                        }
+                        else
+                            System.out.println("Non abbiamo ritrovato il termine "+sricerca+" nella lista.");
+                    }
+                    break;
                 case 6:
                     if (conta==0)
                         System.out.println("Inserire almeno un valore prima");
@@ -76,8 +88,31 @@ public class ArchivioDiNomi{
                     }
                     break;
                 case 7:
+                    if (conta==0)
+                        System.out.println("Inserire almeno un valore prima");
+                    else {
+                        System.out.println("Il nome più lungo in lista è: "+isMaximus(parole,conta));
+                        System.out.println("Il nome più corto in lista è: "+isMinimus(parole,conta));
+                    }
+                    break;
                 case 8:
+                    if (conta==0)
+                        System.out.println("Inserire almeno un valore prima");
+                    else {
+                        System.out.println("Inserire la stringa da cancellare");
+                        String scancella=in.nextLine();
+                        if (isRicerca(parole,scancella,conta)){
+                            multipli=isContaCancellazioneMultipla(parole,conta,scancella);
+                            parole=isCancellazioneMultipla(parole,conta,scancella);
+                            conta-=multipli;
+                        }
+                        else
+                            System.out.println("Non abbiamo ritrovato il termine "+scancella+" nella lista.");
+                    }
+                    break;
                 case 9:
+                    System.out.println("Coming soon");
+                    break;
                 case 0:
                     System.out.println("Ciao");
                     break;
@@ -96,7 +131,7 @@ public class ArchivioDiNomi{
     }
     private static String [] isCancellazioneSingola (String [] parole, int conta, String scancella){
         int posizione=0;
-        for (int i=0;i<conta+1;i++){
+        for (int i=0;i<conta+1;i++){ //+1 per complementare  alla decrementazione principalmente
             if (scancella.equals(parole[i])){
                 posizione=i;
                 break;
@@ -106,6 +141,25 @@ public class ArchivioDiNomi{
           parole[i]=parole[i+1];
         }
         return parole;
+    }
+    private static String [] isCancellazioneMultipla (String [] parole, int conta, String scancella){
+        for (int i=0;i<conta;i++){
+            if (scancella.equals(parole[i])){
+                for (int p=i;p<conta;p++){
+                    parole[p]=parole[p+1];
+                }
+            }
+        }
+        return parole;
+    }
+    private static int isContaCancellazioneMultipla (String [] parole, int conta, String scancella){
+        int contacancellate=0;
+        for (int i=0;i<conta;i++){
+            if (scancella.equals(parole[i])){
+                contacancellate++;
+            }
+        }
+        return contacancellate;
     }
     private static boolean isRicerca (String [] parole, String ricerca, int conta){
         boolean presente=false;
@@ -135,5 +189,32 @@ public class ArchivioDiNomi{
             }
         }
         return ripetizioni;
+    }
+    private static String [] isModifica (String [] parole, String ricerca,String modifica, int conta){
+        for (int i=0;i<conta;i++){
+            if (ricerca.equals(parole[i])){
+                parole[i]=modifica;
+                break;
+            }
+        }
+        return parole;
+    }
+    private static String isMaximus (String [] parole, int conta){
+        String max=parole[0];
+        for (int i=0;i<conta;i++){
+            if (max.length()<parole[i].length()){
+                max=parole[i];
+            }
+        }
+        return max;
+    }
+    private static String isMinimus (String [] parole, int conta){
+        String min=parole[0];
+        for (int i=0;i<conta;i++){
+            if (min.length()>parole[i].length()){
+                min=parole[i];
+            }
+        }
+        return min;
     }
 }
