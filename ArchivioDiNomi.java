@@ -15,7 +15,7 @@ public class ArchivioDiNomi{
 	System.out.println ("7 - Ricerca del nome piC9 lungo e piC9 corto;");
 	System.out.println ("8 - Cancellazione di tutte le occorrenze di un nome;");
 	System.out.println ("0 - Uscita ");
-	int scelta = in.nextInt ();
+	int scelta = in.nextInt();
 	switch (scelta){
 	        case 1:
 	                conta++;
@@ -24,6 +24,16 @@ public class ArchivioDiNomi{
 	                parole=isAggiunta(parole,p,conta);
 	                break;
                 case 2:
+                        if (conta==0)
+                                System.out.println("Inserire almeno un valore prima");
+                        else{
+                                System.out.println("Inserire la stringa da ricercare");
+                                String sricerca=in.nextLine();
+                                for (int i=0;i<conta;i++){
+                                        
+                                }
+                        }
+                        break;
                 case 3:
                 case 4:
                 case 5:
@@ -32,7 +42,7 @@ public class ArchivioDiNomi{
                                 System.out.println("Inserire almeno un valore prima");
                         else{
                                 for (int i=0;i<conta;i++){
-                                        System.out.printl(parole,i)
+                                        System.out.printl(parole,i);
                                 }
                         }
                         break;
