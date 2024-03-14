@@ -4,7 +4,7 @@ public class ArchivioDiNomi{
         Scanner in = new Scanner (System.in);
         int conta=0;
         boolean ce=false;
-        int scelta,posizione = 0;
+        int scelta;
         String [] parole=new String[100];
         do{
             System.out.println ("Scegli una tra le opzioni proposte:");
@@ -30,25 +30,29 @@ public class ArchivioDiNomi{
                     if (conta==0)
                         System.out.println("Inserire almeno un valore prima");
                     else{
+                        System.out.println("Inserire la stringa da cancellare");
+                        String scancella=in.nextLine();
+                        if (isRicerca(parole,scancella,conta)){
+                            conta--;
+                            parole=isCancellazioneSingola(parole,conta,scancella);
+                        }
+                        else
+                            System.out.println("Non abbiamo ritrovato il termine "+scancella+" nella lista.");
+                    }
+                    break;
+                case 3:
+                    if (conta==0)
+                        System.out.println("Inserire almeno un valore prima");
+                    else{
                         System.out.println("Inserire la stringa da ricercare");
                         String sricerca=in.nextLine();
-                        ce=false;
-                        for (int i=0;i<conta;i++){
-                            if (sricerca.equals(parole[i])){
-                                ce=true;
-                                posizione=i;
-                                break;
-                            }
-                        }
-                        if (ce){
-                            conta--;
-                            parole=isCancellazioneSingola(parole,conta,posizione);
+                        if (isRicerca(parole,sricerca,conta)){
+                            System.out.println("Il termine "+sricerca+" è presente");
                         }
                         else
                             System.out.println("Non abbiamo ritrovato il termine "+sricerca+" nella lista.");
                     }
                     break;
-                case 3:
                 case 4:
                 case 5:
                 case 6:
@@ -80,10 +84,27 @@ public class ArchivioDiNomi{
         String s=parole[i];
         return s;
     }
-    private static String [] isCancellazioneSingola (String [] parole, int conta, int posizione){
+    private static String [] isCancellazioneSingola (String [] parole, int conta, String scancella){
+        int posizione=0;
+        for (int i=0;i<conta+1;i++){
+            if (scancella.equals(parole[i])){
+                posizione=i;
+                break;
+            }
+        }
         for (int i=posizione;i<conta;i++){
           parole[i]=parole[i+1];
         }
         return parole;
+    }
+    private static boolean isRicerca (String [] parole, String ricerca, int conta){
+        boolean presente=false;
+        for (int i=0;i<conta;i++){
+            if (ricerca.equals(parole[i])){
+                presente=true;
+                break;
+            }
+        }
+        return presente;
     }
 }
