@@ -87,29 +87,7 @@ public class ArchivioDiNomi{
                         System.out.println();
                     }
                     break;
-                case 7:
-                    if (conta==0)
-                        System.out.println("Inserire almeno un valore prima");
-                    else {
-                        System.out.println("Il nome più lungo in lista è: "+isMaximus(parole,conta));
-                        System.out.println("Il nome più corto in lista è: "+isMinimus(parole,conta));
-                    }
-                    break;
-                case 8:
-                    if (conta==0)
-                        System.out.println("Inserire almeno un valore prima");
-                    else {
-                        System.out.println("Inserire la stringa da cancellare");
-                        String scancella=in.nextLine();
-                        if (isRicerca(parole,scancella,conta)){
-                            multipli=isContaCancellazioneMultipla(parole,conta,scancella);
-                            parole=isCancellazioneMultipla(parole,conta,scancella);
-                            conta-=multipli;
-                        }
-                        else
-                            System.out.println("Non abbiamo ritrovato il termine "+scancella+" nella lista.");
-                    }
-                    break;
+                
                 case 9:
                     System.out.println("Coming soon");
                     break;
