@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.util.Scanner;
 public class ArchivioDiNomi{
     public static void main (String[]args){
@@ -9,12 +10,13 @@ public class ArchivioDiNomi{
             System.out.println ("1 - Aggiunta di un nome;");
             System.out.println ("2 - Cancellazione del singolo nome;");
             System.out.println ("3 - Ricerca sequenziale di un nome;");
-            System.out.println ("4 - Visualizza nomi ripetuti con numero ripetizioni;");
+            System.out.println ("4 - Visualizza nomi con numero ripetizioni;");
             System.out.println ("5 - Modifica di un nome;");
             System.out.println ("6 - Visualizzazione di tutti i nomi presenti;");
             System.out.println ("7 - Ricerca del nome più lungo e più corto;");
             System.out.println ("8 - Cancellazione di tutte le occorrenze di un nome;");
-            System.out.println ("0 - Uscita ");
+            System.out.println ("9 - Visualizza nomi ripetuti con numero ripetizioni;");
+            System.out.println ("0 - Uscita. ");
             scelta = in.nextInt();
             in.nextLine();
             switch (scelta){
@@ -114,7 +116,18 @@ public class ArchivioDiNomi{
                     }
                     break;
                 case 9:
-                    System.out.println("Coming soon");
+                    System.out.println("Beta: ");
+                    if (conta==0)
+                        System.out.println("Inserire almeno un valore prima");
+                    else {
+                        for (int i=0;i<conta;i++){
+                            if (!isgiaPresente(parole,i)){
+                                int pollo=contaRipetizioni(parole,i,conta);
+                                if (pollo>1)
+                                    System.out.println("La stringa "+parole[i]+" è presente in quantità "+pollo);
+                            }
+                        }
+                    }
                     break;
                 case 0:
                     System.out.println("Adioss");
